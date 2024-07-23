@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "sourceMap": true,
+    "strict": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "declaration": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "target": "es6",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "outDir": "./dist/es6"
+  },
+  "include": [
+    "src",
+    "test"
+  ]
+}
