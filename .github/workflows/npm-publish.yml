@@ -3,7 +3,6 @@ name: Publish Package to npmjs
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 jobs:
   build:
@@ -20,6 +19,6 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - run: npm ci
       - name: Publish @mvuijs/ui5
-        run: npm publish --access public --dry-run
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

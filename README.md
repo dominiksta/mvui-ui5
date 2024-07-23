@@ -1,35 +1,76 @@
-This is a wrapper around the
-[SAP UI5 Web Components](https://sap.github.io/ui5-webcomponents/).
+# Mvui SAP UI5 Web Components
 
-### Why Wrap an External Library?
+This is a wrapper around the [SAP UI5 Web
+Components](https://sap.github.io/ui5-webcomponents/) for
+[Mvui](https://github.com/dominiksta/mvui).
 
-Even if Mvui would evetually get its own standard library of components, it is highly
-unlikely that this will ever reach the level of a more professionaly made ui library in
-terms of having a consistent design language, accessibility, themes and complex widgets
-like datepickers.
+## Why
 
-### Why UI5?
+The mvui team endeavours to provide enterprise ready solutions, empowering
+developers with a state-of-the-art framework to facilitate rapid iteration. Our
+continuing mission is and has always been to help businesses navigate the
+complex space of modern technology like Artificial Intelligence (AI) and
+Blockchain more effectively with standardized tooling. We are therefore excited
+to announce our integration of [SAP UI5 Web
+Components](https://sap.github.io/ui5-webcomponents/)!
 
-Looking through various lists on webcomponent libraries on the internet such as [this
-one](https://sap.github.io/ui5-webcomponents/), one quickly finds that a lot of them are
-either unmaintained or simply do not have that many downloads/stars. UI5 seems to get a
-reasonable amount of use and should be around for quite a long time since it explicitly
-targets enterprise users.
+Jokes aside, the UI5 Web Components are actually a very practical and complete
+component library. They will also probably stick around for a long time because
+SAP is advertising them to enterprise customers, which usually expect stability
+and long term support.
 
-Filtering the list of libraries to ones which most would deem decently future proof, there
-would have been only two alternatives:
+Are they the prettiest components in the world? Arguably no. But they fit the
+intended use case of mvui very well: Projects that are specifically built to
+require minimal long term maintenance. They are also much more feature complete
+than most component libraries: They have dark mode support, high contrast themes
+for accesibility, right-to-left language support, many responsive components
+(like a menu that looks like a right-click menu on desktop but becomes a
+full-screen component on mobile) and a selection of complex components like
+wizards, calendars that support different calendar types or trees with custom
+nested components.
 
-- Vaadin Web Components: These seem nice, but they seem to (understandably) focus [their
-  docs](https://vaadin.com/docs/latest/components) very heavily on their own framework
-  rather then on how to use their components as "normal" web components. They do have an
-  [api reference](https://cdn.vaadin.com/vaadin-web-components/23.3.5/) site which is more
-  tailored to that purpose, but this one is lacking any examples or images and is hidden
-  behind several links. Overall, vaadin web components seem nice, but their (again,
-  understandable) focus on their own framework leaves one wondering about the present and
-  future dx.
-- Ionic Components: These also seem very nice and [their
-  documentation](https://ionicframework.com/docs/components) is presented in a framework
-  neutral way, but they do seem to focus heavily on mobile app development. This is not a
-  priority for the apps that I (@dominiksta) want to build right now, so for the time
-  being UI5 seemed like the nicest option.
+Fundamentally, there is nothing stopping you from using any web component
+library in mvui. To provide type-safety for events and slots however, creating
+wrappers is necessary. Because of this, mvui provides wrappers to all UI5 Web
+Components in the `@mvuijs/ui5` package. Also, the package bundles the required
+fonts so that you can use the package for offline applications (with something
+like electron). You can read about available components, their arguments,
+events, etc. in the [official
+documentation](https://sap.github.io/ui5-webcomponents/components/).
 
+## How
+
+First, install the package with `npm install @mvuijs/ui5`. All Components are
+available as single import (e.g. `import { input } from '@mvuijs/ui5')`, but you
+may import them all with a `*` import for convenience (`import * as ui5 from
+'@mvuijs/ui5'`),
+
+Below is a simple example of the UI5 input and
+[DateTimePicker](https://sap.github.io/ui5-webcomponents/components/DateTimePicker/),
+showing the use of two-way bindings for the date. Two-way bindings work because
+Mvui listens to `change` events when using two-way bindings by default.
+
+```typescript
+import { Component, h, rx } from '@mvuijs/core';
+import * as ui5 from '@mvuijs/ui5';
+
+const INITIAL_DATE = '2024-01-01 01:02:03';
+
+@Component.register
+export default class UI5Test extends Component {
+  render() {
+    const date = new rx.State(INITIAL_DATE);
+
+    return [
+      // in production, you should really validate the dates string format. this
+      // is more for demonstrational purposes
+      ui5.input({ fields: { value: rx.bind(date) }}),
+      ui5.dateTimePicker({ fields: {
+        value: rx.bind(date),
+        formatPattern: 'YYYY-MM-dd hh:mm:ss'
+      }}),
+      ui5.button({ events: { click: _ => date.next(INITIAL_DATE) } }, 'Reset'),
+    ]
+  }
+}
+```
