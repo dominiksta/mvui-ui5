@@ -338,7 +338,7 @@ class Main extends Component {
   })
 }
 
-style.currentTheme$.subscribe(theme => {
+style.currentTheme.subscribe(theme => {
   ui5.config.setTheme(theme === 'light' ? 'sap_horizon' : 'sap_horizon_dark');
   document.body.style.background = theme === 'light' ? '#F5F6F7' : '#12171C';
   document.body.style.color = theme === 'light' ? 'black' : 'white';

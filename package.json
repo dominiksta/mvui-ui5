@@ -1,6 +1,6 @@
 {
   "name": "@mvuijs/ui5",
-  "version": "1.19.0",
+  "version": "1.24.8",
   "description": "",
   "module": "dist/es6/index.js",
   "types": "dist/es6/index.d.ts",
@@ -25,10 +25,10 @@
   "dependencies": {
     "@mvuijs/core": "~0.0.3",
     "@mvuijs/sap-ui5-fonts": "file:fonts",
-    "@ui5/webcomponents": "1.19.0",
-    "@ui5/webcomponents-icons": "1.19.0",
-    "@ui5/webcomponents-icons-business-suite": "1.19.0",
-    "@ui5/webcomponents-icons-tnt": "1.19.0"
+    "@ui5/webcomponents": "~1.24.8",
+    "@ui5/webcomponents-icons": "~1.24.8",
+    "@ui5/webcomponents-icons-business-suite": "~1.24.8",
+    "@ui5/webcomponents-icons-tnt": "~1.24.8"
   },
   "devDependencies": {
     "css-loader": "^6.8.1",
